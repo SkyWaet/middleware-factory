@@ -2,7 +2,7 @@ package com.skywaet.middlewarefactory.grpcserver.service.factory;
 
 
 import com.skywaet.middlewarefactory.grpcserver.middleware.BaseMiddleware;
-import com.skywaet.middlewarefactory.grpcserver.middleware.impl.SimpleMiddleware;
+import com.skywaet.middlewarefactory.grpcserver.model.EndpointMiddlewareBinding;
 import com.skywaet.middlewarefactory.grpcserver.service.configuration.IConfigurationService;
 import coprocess.CoprocessMiniRequestObject;
 import coprocess.CoprocessObject;
@@ -31,13 +31,17 @@ public class FactoryService extends DispatcherGrpc.DispatcherImplBase implements
 
         CoprocessMiniRequestObject.MiniRequestObject requestData = request.getRequest();
 
-        List<String> middlewareNames = configurationService.getMiddlewaresForRequest(request.getHookType(), requestData.getMethod(),
-                requestData.getRequestUri());
+        List<EndpointMiddlewareBinding> middlewareConfigurations = configurationService.getMiddlewaresForRequest(request);
 
-        if (!CollectionUtils.isEmpty(middlewareNames)) {
-            middlewareNames.parallelStream()
-                    .map(name -> applicationContext.getBean(name, BaseMiddleware.class))
-                    .map(middleware -> middleware.process(request))
+        CoprocessObject.Object result = null;
+
+        if (!CollectionUtils.isEmpty(middlewareConfigurations)) {
+            middlewareConfigurations.stream()
+                    .map(config -> {
+                        BaseMiddleware middleware = applicationContext.getBean(config.getMiddleware().getName(),
+                                BaseMiddleware.class);
+                        return middleware.process(request, config.getParams());
+                    })
                     .reduce(this::mergeObjects)
                     .ifPresent(responseObserver::onNext);
         }
@@ -56,7 +60,12 @@ public class FactoryService extends DispatcherGrpc.DispatcherImplBase implements
         miniRequestBuilder.addAllDeleteParams(newValue.getRequest().getDeleteParamsList());
         miniRequestBuilder.putAllExtendedParams(newValRequest.getExtendedParamsMap());
 
-        miniRequestBuilder.setBody(newValRequest.getBody());
+        if (miniRequestBuilder.getBody() == null || newValRequest.getBody() != null) {
+            miniRequestBuilder.setBody(newValRequest.getBody());
+        }
+        if (newValRequest.getReturnOverrides() != null) {
+            miniRequestBuilder.setReturnOverrides(newValRequest.getReturnOverrides());
+        }
         return accumulatorBuilder.build();
     }
 }

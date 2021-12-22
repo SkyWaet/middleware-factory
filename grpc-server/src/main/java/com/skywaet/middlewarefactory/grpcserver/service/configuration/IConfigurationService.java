@@ -1,9 +1,12 @@
 package com.skywaet.middlewarefactory.grpcserver.service.configuration;
 
+import com.skywaet.middlewarefactory.grpcserver.model.EndpointMiddlewareBinding;
+import coprocess.CoprocessObject;
+
 import java.util.List;
 
 public interface IConfigurationService {
 
-    List<String> getMiddlewaresForRequest(coprocess.CoprocessCommon.HookType type, String method, String url);
+    List<EndpointMiddlewareBinding> getMiddlewaresForRequest(CoprocessObject.Object object);
 
 }

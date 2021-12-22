@@ -1,0 +1,47 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="2021-12-20-01-add-endpoints" author="skywaet">
+        <createTable tableName="endpoints">
+            <column remarks="ID Autoincrement" name="id" type="bigserial">
+                <constraints primaryKey="true"/>
+            </column>
+            <column remarks="request uri" name="uri" type="text"/>
+            <column remarks="http method" name="method" type="text"/>
+            <column remarks="api id" name="api_id" type="bigserial"/>
+        </createTable>
+        <addUniqueConstraint tableName="endpoints" columnNames="api_id, uri, method"/>
+    </changeSet>
+    <changeSet id="2021-12-20-02-add-middlewares" author="skywaet">
+        <createTable tableName="middlewares">
+            <column remarks="ID Autoincrement" name="id" type="bigserial">
+                <constraints primaryKey="true"/>
+            </column>
+            <column remarks="name" name="name" type="text">
+                <constraints unique="true"/>
+            </column>
+            <column remarks="type" name="type" type="text"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2021-12-20-03-add-endpoint-middleware-binding" author="skywaet">
+        <createTable tableName="endpoint_middleware_binding">
+            <column remarks="endpoint id" name="endpoint_id" type="bigserial"/>
+            <column remarks="middleware id" name="middleware_id" type="bigserial"/>
+            <column remarks="phase" name="phase" type="text"/>
+            <column remarks="place in chain" name="place" type="int"/>
+            <column remarks="additional params" name="params" type="jsonb"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="endpoint_middleware_binding"
+                                 baseColumnNames="endpoint_id"
+                                 constraintName="fk_endpoint_middleware_binding_endpoint"
+                                 referencedTableName="endpoints"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="endpoint_middleware_binding"
+                                 baseColumnNames="middleware_id"
+                                 constraintName="fk_endpoint_middleware_binding_middleware"
+                                 referencedTableName="middlewares"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>
