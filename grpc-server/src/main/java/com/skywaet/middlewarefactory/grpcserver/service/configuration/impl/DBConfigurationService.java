@@ -37,4 +37,9 @@ public class DBConfigurationService implements IConfigurationService {
         return StreamSupport.stream(repository.findAll(builder, Sort.by(Sort.Direction.ASC, "place"))
                 .spliterator(), false).collect(Collectors.toList());
     }
+
+    @Override
+    public List<String> getAllMiddlewareNames() {
+        return repository.getNamesOfAllUsedMiddlewares();
+    }
 }

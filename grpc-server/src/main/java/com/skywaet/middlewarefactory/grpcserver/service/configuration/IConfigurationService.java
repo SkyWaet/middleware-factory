@@ -9,4 +9,6 @@ public interface IConfigurationService {
 
     List<EndpointMiddlewareBinding> getMiddlewaresForRequest(CoprocessObject.Object object);
 
+    List<String> getAllMiddlewareNames();
+
 }

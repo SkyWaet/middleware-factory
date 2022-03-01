@@ -21,4 +21,9 @@ public class SimpleConfigurationService implements IConfigurationService {
         //return List.of(SIMPLE_MW_NAME, SIMPLE_BODY_TRANSFORMER_NAME);
         return null;
     }
+
+    @Override
+    public List<String> getAllMiddlewareNames() {
+        return List.of(SIMPLE_MW_NAME);
+    }
 }
