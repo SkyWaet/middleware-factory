@@ -32,7 +32,7 @@ public class EndpointMiddlewareBinding {
 
     @Column
     @Type(type = "jsonb")
-    private Map<String, String> params;
+    private Map<String, Object> params;
 
     @Column
     private Integer place;

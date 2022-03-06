@@ -13,7 +13,7 @@ import java.util.List;
 public interface EndpointMiddlewareRepository extends BaseRepository<EndpointMiddlewareBinding,
         EndpointMiddlewareBindingId,
         QEndpointMiddlewareBinding> {
-    @Query(value = "select distinct EndpointMiddlewareBinding.middleware.name " +
+    @Query(value = "select distinct middleware.name " +
             "from EndpointMiddlewareBinding")
     List<String> getNamesOfAllUsedMiddlewares();
 

@@ -1,5 +1,7 @@
 grpc:
-  port: 6565
+  server:
+    port: 6565
+    address: 192.168.1.103
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/MiddlewareFactory

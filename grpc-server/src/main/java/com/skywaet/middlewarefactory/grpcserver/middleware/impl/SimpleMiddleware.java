@@ -12,7 +12,7 @@ public class SimpleMiddleware implements BaseMiddleware {
     private static final String TEST_HEADER_VALUE = "testVal";
 
     @Override
-    public CoprocessObject.Object process(CoprocessObject.Object input, Map<String, String> additionalParams) {
+    public CoprocessObject.Object process(CoprocessObject.Object input, Map<String, Object> additionalParams) {
         CoprocessObject.Object.Builder builder = input.toBuilder();
         builder.getRequestBuilder().putSetHeaders(TEST_HEADER, TEST_HEADER_VALUE);
         return builder.build();

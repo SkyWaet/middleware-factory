@@ -6,5 +6,5 @@ import java.util.Map;
 
 public interface BaseMiddleware {
 
-    CoprocessObject.Object process(CoprocessObject.Object input, Map<String, String> additionalParams);
+    CoprocessObject.Object process(CoprocessObject.Object input, Map<String, Object> additionalParams);
 }

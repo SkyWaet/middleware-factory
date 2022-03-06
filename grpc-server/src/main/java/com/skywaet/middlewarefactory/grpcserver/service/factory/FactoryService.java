@@ -1,11 +1,13 @@
 package com.skywaet.middlewarefactory.grpcserver.service.factory;
 
 
+import com.skywaet.middlewarefactory.grpcserver.exception.BaseMiddlewareException;
 import com.skywaet.middlewarefactory.grpcserver.middleware.BaseMiddleware;
 import com.skywaet.middlewarefactory.grpcserver.model.EndpointMiddlewareBinding;
 import com.skywaet.middlewarefactory.grpcserver.service.configuration.IConfigurationService;
 import com.skywaet.middlewarefactory.grpcserver.util.MergeObjectsUtils;
 import coprocess.CoprocessObject;
+import coprocess.CoprocessReturnOverrides;
 import coprocess.DispatcherGrpc;
 import io.grpc.stub.StreamObserver;
 import lombok.AllArgsConstructor;
@@ -38,13 +40,22 @@ public class FactoryService extends DispatcherGrpc.DispatcherImplBase implements
 
 
         if (!CollectionUtils.isEmpty(middlewareConfigurations)) {
-            middlewareConfigurations.stream()
-                    .map(config -> {
-                        BaseMiddleware middleware = middlewareMap.get(config.getMiddleware().getName());
-                        return middleware.process(request, config.getParams());
-                    })
-                    .reduce(mergeObjectsUtils::mergeObjects)
-                    .ifPresent(responseObserver::onNext);
+            try {
+                middlewareConfigurations.stream()
+                        .map(config -> {
+                            BaseMiddleware middleware = middlewareMap.get(config.getMiddleware().getName());
+                            return middleware.process(request, config.getParams());
+                        })
+                        .reduce(mergeObjectsUtils::mergeObjects)
+                        .ifPresent(responseObserver::onNext);
+            } catch (BaseMiddlewareException e) {
+                CoprocessObject.Object.Builder errBuilder = request.toBuilder();
+                CoprocessReturnOverrides.ReturnOverrides error = CoprocessReturnOverrides.ReturnOverrides.newBuilder().
+                        setResponseCode(400).setResponseError(e.getMessage()).build();
+                errBuilder.getRequestBuilder().setReturnOverrides(error);
+                responseObserver.onNext(errBuilder.build());
+            }
+
         }
 
         responseObserver.onCompleted();
