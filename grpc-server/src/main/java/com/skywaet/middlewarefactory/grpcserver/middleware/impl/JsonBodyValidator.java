@@ -10,7 +10,6 @@ import com.networknt.schema.ValidationMessage;
 import com.skywaet.middlewarefactory.grpcserver.exception.JsonBodyValidationFailureException;
 import com.skywaet.middlewarefactory.grpcserver.middleware.BaseMiddleware;
 import coprocess.CoprocessObject;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -19,13 +18,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component("JsonBodyValidator")
-@AllArgsConstructor
 @Slf4j
 public class JsonBodyValidator implements BaseMiddleware {
 
     private final ObjectMapper mapper = new ObjectMapper();
-
-
     @Override
     public CoprocessObject.Object process(CoprocessObject.Object input, Map<String, Object> additionalParams) {
         String schema = (String) additionalParams.get("schema");
