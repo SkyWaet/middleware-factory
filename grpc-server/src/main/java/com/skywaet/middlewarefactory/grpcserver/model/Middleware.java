@@ -7,7 +7,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @SuperBuilder
 @EqualsAndHashCode(callSuper = true)
@@ -19,10 +21,6 @@ import javax.persistence.*;
 public class Middleware extends BaseEntity {
     @Column
     private String name;
-
-    @Column
-    @Enumerated(value = EnumType.STRING)
-    private LocalHookType type;
 
 
 }

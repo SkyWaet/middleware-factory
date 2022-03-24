@@ -1,4 +1,4 @@
-package com.skywaet.middlewarefactory.grpcserver.exception;
+package com.skywaet.middlewarefactory.grpcserver.exception.middleware;
 
 public abstract class BaseMiddlewareException extends RuntimeException {
 

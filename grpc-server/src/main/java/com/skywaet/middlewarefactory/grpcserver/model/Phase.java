@@ -5,5 +5,6 @@ public enum Phase {
     AUTH,
     POST_AUTH,
     POST,
-    RESPONSE
+    RESPONSE,
+    ANY
 }

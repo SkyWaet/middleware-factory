@@ -10,7 +10,7 @@
             </column>
             <column remarks="request uri" name="uri" type="text"/>
             <column remarks="http method" name="method" type="text"/>
-            <column remarks="api id" name="api_id" type="bigserial"/>
+            <column remarks="api id" name="api_id" type="bigint"/>
         </createTable>
         <addUniqueConstraint tableName="endpoints" columnNames="api_id, uri, method"/>
     </changeSet>
@@ -22,7 +22,6 @@
             <column remarks="name" name="name" type="text">
                 <constraints unique="true"/>
             </column>
-            <column remarks="type" name="type" type="text"/>
         </createTable>
     </changeSet>
     <changeSet id="2021-12-20-03-add-endpoint-middleware-binding" author="skywaet">

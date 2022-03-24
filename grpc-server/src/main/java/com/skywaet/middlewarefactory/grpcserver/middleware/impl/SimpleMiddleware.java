@@ -1,7 +1,7 @@
 package com.skywaet.middlewarefactory.grpcserver.middleware.impl;
 
 import com.skywaet.middlewarefactory.grpcserver.middleware.BaseMiddleware;
-import coprocess.CoprocessObject;
+import com.skywaet.middlewarefactory.grpcserver.request.BaseRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -12,9 +12,7 @@ public class SimpleMiddleware implements BaseMiddleware {
     private static final String TEST_HEADER_VALUE = "testVal";
 
     @Override
-    public CoprocessObject.Object process(CoprocessObject.Object input, Map<String, Object> additionalParams) {
-        CoprocessObject.Object.Builder builder = input.toBuilder();
-        builder.getRequestBuilder().putSetHeaders(TEST_HEADER, TEST_HEADER_VALUE);
-        return builder.build();
+    public BaseRequest process(BaseRequest input, Map<String, Object> additionalParams) {
+        return input.addHeader(TEST_HEADER, TEST_HEADER_VALUE);
     }
 }
