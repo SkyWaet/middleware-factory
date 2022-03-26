@@ -18,7 +18,7 @@ public class XMLBodyValidator implements BaseMiddleware {
     @Override
     public BaseRequest process(BaseRequest input, Map<String, Object> additionalParams) {
         String rawSchema = (String) additionalParams.get("schema");
-        validator.validateXML(input.getBody(), rawSchema);
+        validator.validateXML(input.getRequestBody(), rawSchema);
         return input;
     }
 

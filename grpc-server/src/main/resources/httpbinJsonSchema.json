@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/simpleBody.schema.json",
+  "title": "simple body",
+  "description": "simple body",
+  "type": "object",
+  "properties": {
+    "key": {
+      "description": "sample key",
+      "type": "string"
+    }
+  },
+  "required": [
+    "key"
+  ],
+  "additionalProperties": true
+}
+

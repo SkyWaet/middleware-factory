@@ -5,9 +5,9 @@ package coprocess;
 enum HookType {
   Unknown = 0;
   Pre = 1;
-	Post = 2;
-	PostKeyAuth = 3;
-	CustomKeyCheck  = 4;
+  Post = 2;
+  PostKeyAuth = 3;
+  CustomKeyCheck  = 4;
   Response = 5;
 }
 

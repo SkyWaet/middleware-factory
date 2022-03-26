@@ -128,12 +128,12 @@ public class TykRequestProxy implements TykRequest {
     }
 
     @Override
-    public String getBody() {
+    public String getRequestBody() {
         return requestObject.getRequest().getBody();
     }
 
     @Override
-    public BaseRequest setBody(String body) {
+    public BaseRequest setRequestBody(String body) {
         CoprocessObject.Object.Builder requestBuilder = requestObject.toBuilder();
         requestBuilder.getRequestBuilder().setBody(body);
         requestBuilder.getRequestBuilder().setRawBody(ByteString.copyFrom(body, Charset.defaultCharset()));
@@ -161,6 +161,7 @@ public class TykRequestProxy implements TykRequest {
 
             if (StringUtils.hasText(newValRequest.getBody()) && newValue.isBodyModified()) {
                 accumulatorMiniRequestBuilder.setBody(newValRequest.getBody());
+                accumulatorMiniRequestBuilder.setRawBody(newValRequest.getRawBody());
             }
             return new TykRequestProxy(accumulatorBuilder.build(), this.isBodyModified || newValue.isBodyModified());
         }

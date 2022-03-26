@@ -1,7 +1,5 @@
 package com.skywaet.middlewarefactory.grpcserver.request;
 
-import io.grpc.netty.shaded.io.netty.handler.codec.http.HttpMethod;
-
 import java.util.List;
 import java.util.Map;
 
@@ -34,9 +32,9 @@ public interface BaseRequest {
 
     BaseRequest removeParameter(List<String> parameters);
 
-    String getBody();
+    String getRequestBody();
 
-    BaseRequest setBody(String body);
+    BaseRequest setRequestBody(String body);
 
     boolean isBodyModified();
 

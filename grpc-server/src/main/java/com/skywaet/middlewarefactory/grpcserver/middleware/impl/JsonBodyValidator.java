@@ -19,7 +19,7 @@ public class JsonBodyValidator implements BaseMiddleware {
     @Override
     public BaseRequest process(BaseRequest input, Map<String, Object> additionalParams) {
         String schema = (String) additionalParams.get("schema");
-        validator.validateJson(input.getBody(), schema);
+        validator.validateJson(input.getRequestBody(), schema);
         return input;
     }
 

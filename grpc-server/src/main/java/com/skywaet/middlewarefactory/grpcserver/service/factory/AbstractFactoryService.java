@@ -1,6 +1,5 @@
 package com.skywaet.middlewarefactory.grpcserver.service.factory;
 
-import com.skywaet.middlewarefactory.grpcserver.exception.BaseFactoryException;
 import com.skywaet.middlewarefactory.grpcserver.middleware.BaseMiddleware;
 import com.skywaet.middlewarefactory.grpcserver.model.EndpointMiddlewareBinding;
 import com.skywaet.middlewarefactory.grpcserver.request.BaseRequest;
@@ -14,7 +13,6 @@ import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public abstract class AbstractFactoryService implements MiddlewareFactory, ApplicationContextAware {
 
@@ -33,13 +31,6 @@ public abstract class AbstractFactoryService implements MiddlewareFactory, Appli
                 BaseMiddleware middleware = middlewareMap.get(config.getMiddleware().getName());
                 result = result.mergeWith(middleware.process(request, config.getParams()));
             }
-//            Optional<BaseRequest> optResult = middlewareConfigurations.stream()
-//                    .map(config -> {
-//                        BaseMiddleware middleware = middlewareMap.get(config.getMiddleware().getName());
-//                        return middleware.process(request, config.getParams());
-//                    })
-//                    .reduce(BaseRequest::mergeWith);
-//            return optResult.orElseThrow(BaseFactoryException::new);
             return result;
         }
         return request;

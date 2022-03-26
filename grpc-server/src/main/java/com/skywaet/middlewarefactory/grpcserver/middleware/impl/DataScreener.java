@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.skywaet.middlewarefactory.grpcserver.exception.middleware.JsonBodyValidationFailureException;
 import com.skywaet.middlewarefactory.grpcserver.middleware.BaseMiddleware;
 import com.skywaet.middlewarefactory.grpcserver.request.BaseRequest;
-import liquibase.pro.packaged.W;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -54,38 +53,13 @@ public class DataScreener implements BaseMiddleware {
             }
         }
         return result;
-//        return additionalParams.keySet().stream().map(key -> {
-//            Object currentValue = additionalParams.get(key);
-//            switch (key) {
-//                case "json":
-//                    if (currentValue instanceof List) {
-//                        return screenJsonBody(input, ((List<String>) currentValue));
-//                    }
-//                    throw new IllegalArgumentException("Wrong configuration data format");
-//                case "header":
-//                    if (currentValue instanceof List) {
-//                        return screenHeaders(input, ((List<String>) currentValue));
-//                    }
-//                    throw new IllegalArgumentException("Wrong configuration data format");
-//                case "params":
-//                    if (currentValue instanceof Map) {
-//                        Map<String, Object> params = (Map<String, Object>) currentValue;
-//                        return screenUrlPathAndQueryPathParameters(input,
-//                                (List<String>) params.get("query"),
-//                                (List<String>) params.get("path"));
-//                    }
-//                    throw new IllegalArgumentException("Wrong configuration data format");
-//                default:
-//                    return input;
-//            }
-//        }).reduce(BaseRequest::mergeWith).orElseThrow();
     }
 
     private BaseRequest screenJsonBody(BaseRequest request, List<String> fieldNames) {
         try {
-            ObjectNode parsedBody = (ObjectNode) mapper.readTree(request.getBody());
+            ObjectNode parsedBody = (ObjectNode) mapper.readTree(request.getRequestBody());
             if (fieldNames.size() == 1 && fieldNames.get(0).equals(WILDCARD)) {
-                return request.setBody(WILDCARD);
+                return request.setRequestBody(WILDCARD);
             } else {
                 fieldNames.forEach(name -> {
                     JsonNode foundField = parsedBody.findValue(name);
@@ -94,7 +68,7 @@ public class DataScreener implements BaseMiddleware {
                     }
                 });
             }
-            return request.setBody(mapper.writeValueAsString(parsedBody));
+            return request.setRequestBody(mapper.writeValueAsString(parsedBody));
         } catch (JsonProcessingException e) {
             throw new JsonBodyValidationFailureException("Error while body parsing");
         }

@@ -21,7 +21,7 @@ public class SimpleBodyValidator implements BaseMiddleware {
     public BaseRequest process(BaseRequest input, Map<String, Object> additionalParams) {
 
         try {
-            JsonNode node = objectMapper.readTree(input.getBody());
+            JsonNode node = objectMapper.readTree(input.getRequestBody());
             for (Map.Entry<String, Object> entry : additionalParams.entrySet()) {
                 String key = entry.getKey();
                 String value = (String) entry.getValue();
