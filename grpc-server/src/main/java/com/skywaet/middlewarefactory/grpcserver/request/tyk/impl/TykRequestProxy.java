@@ -1,13 +1,13 @@
 package com.skywaet.middlewarefactory.grpcserver.request.tyk.impl;
 
 import com.google.protobuf.ByteString;
-import com.skywaet.middlewarefactory.grpcserver.model.Phase;
 import com.skywaet.middlewarefactory.grpcserver.request.BaseRequest;
 import com.skywaet.middlewarefactory.grpcserver.request.tyk.TykRequest;
 import coprocess.CoprocessCommon;
 import coprocess.CoprocessMiniRequestObject;
 import coprocess.CoprocessObject;
 import lombok.Getter;
+import com.skywaet.middlewarefactory.factorycommon.model.Phase;
 import org.springframework.util.StringUtils;
 
 import java.nio.charset.Charset;

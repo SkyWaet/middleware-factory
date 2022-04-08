@@ -1,0 +1,84 @@
+components:
+  schemas:
+    Pageable:
+      type: Pageable
+      properties:
+        sort:
+          $ref: '#/components/schemas/Sort'
+        page_number:
+          type: integer
+        page_size:
+          type: integer
+        offset:
+          type: integer
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
+
+    Sort:
+      type: Predicate
+      properties:
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
+        empty:
+          type: boolean
+    Page:
+      type: Page
+      properties:
+        pageable:
+          $ref: '#/components/schemas/Pageable'
+        total_pages:
+          type: integer
+        total_elements:
+          type: integer
+        last:
+          type: boolean
+        first:
+          type: boolean
+        size:
+          type: integer
+        number_of_elements:
+          type: integer
+        number:
+          type: integer
+        sort:
+          $ref: '#/components/schemas/Sort'
+        empty:
+          type: boolean
+  parameters:
+    PaginationSearch:
+      name: search
+      in: query
+      description: search string
+      required: false
+      schema:
+        type: string
+      example: value
+    PaginationPage:
+      name: page
+      in: query
+      description: page number
+      required: false
+      schema:
+        type: integer
+      example: 0
+    PaginationSize:
+      name: size
+      in: query
+      description: page size
+      required: false
+      schema:
+        type: integer
+      example: 20
+    PaginationSort:
+      name: sort
+      in: query
+      description: page sort
+      required: false
+      schema:
+        type: string
+      example: name,asc
+

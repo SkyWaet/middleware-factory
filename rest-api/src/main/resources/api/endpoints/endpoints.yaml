@@ -1,0 +1,157 @@
+openapi: 3.0.3
+info:
+  title: endpoints controller
+  description: endpoints controller
+  version: 1.0.0
+paths:
+  /endpoints:
+    get:
+      description: list of all registred endpoints
+      tags:
+        - endpoints
+      parameters:
+        - $ref: '../pageable/pageable.yml/#/components/parameters/PaginationSearch'
+        - $ref: '../pageable/pageable.yml/#/components/parameters/PaginationPage'
+        - $ref: '../pageable/pageable.yml/#/components/parameters/PaginationSize'
+        - $ref: '../pageable/pageable.yml/#/components/parameters/PaginationSort'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EndpointPage"
+    post:
+      description: create new endpoint
+      tags:
+        - endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EndpointExtendedDto"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EndpointExtendedDto"
+
+  /endpoints/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+        description: endpoint id
+    get:
+      description: get endpoint by id
+      tags:
+        - endpoints
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EndpointExtendedDto"
+        404:
+          description: not found
+    put:
+      description: update endpoint by id
+      tags:
+        - endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EndpointExtendedDto"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EndpointExtendedDto"
+        404:
+          description: not found
+    delete:
+      tags:
+        - endpoints
+      description: delete endpoint
+      responses:
+        204:
+          description: OK
+        404:
+          description: not found
+components:
+  schemas:
+    EndpointPage:
+      type: Page
+      allOf:
+        - $ref: "../pageable/pageable.yml/#/components/schemas/Page"
+        - type: object
+          additionalProperties: false
+          properties:
+            content:
+              type: array
+              items:
+                $ref: "#/components/schemas/EndpointDto"
+    EndpointDto:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: integer
+          format: int64
+        uri:
+          type: string
+        method:
+          type: string
+        api_id:
+          type: string
+      required:
+        - uri
+        - method
+        - api_id
+    EndpointExtendedDto:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/EndpointDto"
+        - type: object
+          additionalProperties: false
+          properties:
+            middlewares:
+              type: array
+              items:
+                $ref: "#/components/schemas/EndpointMiddlewareBindingDto"
+
+    EndpointMiddlewareBindingDto:
+      type: object
+      additionalProperties: false
+      properties:
+        endpoint_id:
+          type: integer
+          format: int64
+        middleware_id:
+          type: integer
+          format: int64
+        phase:
+          type: string
+          enum:
+            - PRE
+            - AUTH
+            - POST_AUTH
+            - POST
+            - RESPONSE
+        place:
+          description: place in chain for chosen phase
+          type: integer
+          minimum: 0
+        params:
+          type: object
+          additionalProperties: true

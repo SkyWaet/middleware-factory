@@ -1,8 +1,8 @@
 package com.skywaet.middlewarefactory.grpcserver.request.tyk;
 
-import com.skywaet.middlewarefactory.grpcserver.model.Phase;
 import com.skywaet.middlewarefactory.grpcserver.request.BaseRequest;
 import coprocess.CoprocessObject;
+import com.skywaet.middlewarefactory.factorycommon.model.Phase;
 
 public interface TykRequest extends BaseRequest {
 

@@ -1,9 +1,9 @@
 package com.skywaet.middlewarefactory.grpcserver.service.configuration.impl;
 
-import com.skywaet.middlewarefactory.grpcserver.model.EndpointMiddlewareBinding;
 import com.skywaet.middlewarefactory.grpcserver.request.BaseRequest;
 import com.skywaet.middlewarefactory.grpcserver.service.configuration.IConfigurationService;
 import lombok.AllArgsConstructor;
+import com.skywaet.middlewarefactory.factorycommon.model.EndpointMiddlewareBinding;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 

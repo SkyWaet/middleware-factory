@@ -1,4 +1,4 @@
-package com.skywaet.middlewarefactory.grpcserver.model.base;
+package com.skywaet.middlewarefactory.factorycommon.model.base;
 
 import com.querydsl.core.annotations.QueryEntity;
 import lombok.Data;

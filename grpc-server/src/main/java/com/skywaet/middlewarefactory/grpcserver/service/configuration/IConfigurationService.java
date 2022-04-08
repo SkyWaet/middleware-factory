@@ -1,7 +1,7 @@
 package com.skywaet.middlewarefactory.grpcserver.service.configuration;
 
-import com.skywaet.middlewarefactory.grpcserver.model.EndpointMiddlewareBinding;
 import com.skywaet.middlewarefactory.grpcserver.request.BaseRequest;
+import com.skywaet.middlewarefactory.factorycommon.model.EndpointMiddlewareBinding;
 
 import java.util.List;
 

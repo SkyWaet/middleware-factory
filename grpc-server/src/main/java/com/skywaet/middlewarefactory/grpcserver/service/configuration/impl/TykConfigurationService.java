@@ -1,13 +1,13 @@
 package com.skywaet.middlewarefactory.grpcserver.service.configuration.impl;
 
 import com.querydsl.core.BooleanBuilder;
-import com.skywaet.middlewarefactory.grpcserver.model.EndpointMiddlewareBinding;
-import com.skywaet.middlewarefactory.grpcserver.model.QEndpointMiddlewareBinding;
+import com.skywaet.middlewarefactory.factorycommon.model.QEndpointMiddlewareBinding;
 import com.skywaet.middlewarefactory.grpcserver.repository.EndpointMiddlewareRepository;
 import com.skywaet.middlewarefactory.grpcserver.request.BaseRequest;
 import com.skywaet.middlewarefactory.grpcserver.request.tyk.TykRequest;
 import com.skywaet.middlewarefactory.grpcserver.service.configuration.IConfigurationService;
 import lombok.AllArgsConstructor;
+import com.skywaet.middlewarefactory.factorycommon.model.EndpointMiddlewareBinding;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +29,7 @@ public class TykConfigurationService implements IConfigurationService {
             builder.and(QEndpointMiddlewareBinding.endpointMiddlewareBinding.phase.eq(convertedRequest.getRequestPhase()));
             builder.and(QEndpointMiddlewareBinding.endpointMiddlewareBinding.endpoint.uri.eq(request.getRequestUri()));
             builder.and(QEndpointMiddlewareBinding.endpointMiddlewareBinding.endpoint.method.eq(request.getMethod()));
-            builder.and(QEndpointMiddlewareBinding.endpointMiddlewareBinding.endpoint.apiId.eq(Long.valueOf(convertedRequest.getApiId())));
-
+            builder.and(QEndpointMiddlewareBinding.endpointMiddlewareBinding.endpoint.apiId.eq(convertedRequest.getApiId()));
 
             return StreamSupport.stream(repository.findAll(builder, Sort.by(Sort.Direction.ASC, "place")).spliterator(), false).collect(Collectors.toList());
 

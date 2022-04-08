@@ -1,4 +1,4 @@
-package com.skywaet.middlewarefactory.grpcserver.model;
+package com.skywaet.middlewarefactory.factorycommon.model;
 
 public enum Phase {
     PRE,

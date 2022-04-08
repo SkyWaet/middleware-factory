@@ -1,0 +1,65 @@
+openapi: 3.0.3
+info:
+  title: middlewares controller
+  description: middlewares controller
+  version: 1.0.0
+paths:
+  /middlewares:
+    get:
+      description: list of all available middlewares
+      tags:
+        - middlewares
+      parameters:
+        - $ref: '../pageable/pageable.yml/#/components/parameters/PaginationSearch'
+        - $ref: '../pageable/pageable.yml/#/components/parameters/PaginationPage'
+        - $ref: '../pageable/pageable.yml/#/components/parameters/PaginationSize'
+        - $ref: '../pageable/pageable.yml/#/components/parameters/PaginationSort'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MiddlewarePage"
+    post:
+      description: list of all available middlewares
+      tags:
+        - middlewares
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MiddlewareDto"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MiddlewareDto"
+components:
+  schemas:
+    MiddlewarePage:
+      type: Page
+      allOf:
+      - $ref: "../pageable/pageable.yml/#/components/schemas/Page"
+      - type: object
+        additionalProperties: false
+        properties:
+          content:
+            type: array
+            items:
+              $ref: "#/components/schemas/MiddlewareDto"
+    MiddlewareDto:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+      required:
+        - name
+
+  

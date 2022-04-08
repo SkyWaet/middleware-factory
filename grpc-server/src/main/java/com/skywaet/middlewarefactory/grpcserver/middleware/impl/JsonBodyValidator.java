@@ -1,5 +1,7 @@
 package com.skywaet.middlewarefactory.grpcserver.middleware.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.skywaet.middlewarefactory.grpcserver.middleware.BaseMiddleware;
 import com.skywaet.middlewarefactory.grpcserver.request.BaseRequest;
 import com.skywaet.middlewarefactory.grpcserver.validators.JsonValidator;
@@ -15,11 +17,16 @@ import java.util.Map;
 public class JsonBodyValidator implements BaseMiddleware {
 
     private final JsonValidator validator;
+    private final ObjectMapper mapper = new ObjectMapper();
 
     @Override
     public BaseRequest process(BaseRequest input, Map<String, Object> additionalParams) {
-        String schema = (String) additionalParams.get("schema");
-        validator.validateJson(input.getRequestBody(), schema);
+        Object schema = additionalParams.get("schema");
+        try {
+            validator.validateJson(input.getRequestBody(), mapper.writeValueAsString(schema));
+        } catch (JsonProcessingException e) {
+            log.error("Error while processing json {}", e.getMessage());
+        }
         return input;
     }
 

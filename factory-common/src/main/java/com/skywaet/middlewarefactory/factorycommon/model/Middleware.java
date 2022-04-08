@@ -1,6 +1,6 @@
-package com.skywaet.middlewarefactory.grpcserver.model;
+package com.skywaet.middlewarefactory.factorycommon.model;
 
-import com.skywaet.middlewarefactory.grpcserver.model.base.BaseEntity;
+import com.skywaet.middlewarefactory.factorycommon.model.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,17 +14,13 @@ import javax.persistence.Table;
 @SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 @Data
-@Table(name = "endpoints")
+@Table(name = "middlewares")
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Endpoint extends BaseEntity {
+public class Middleware extends BaseEntity {
     @Column
-    private String uri;
+    private String name;
 
-    @Column
-    private String method;
 
-    @Column
-    private Long apiId;
 }

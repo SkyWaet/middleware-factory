@@ -1,4 +1,4 @@
-package com.skywaet.middlewarefactory.grpcserver.repository;
+package com.skywaet.middlewarefactory.factorycommon.repository;
 
 import com.querydsl.core.types.EntityPath;
 

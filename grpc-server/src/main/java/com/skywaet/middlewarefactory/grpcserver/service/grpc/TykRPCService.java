@@ -1,6 +1,7 @@
 package com.skywaet.middlewarefactory.grpcserver.service.grpc;
 
 import com.skywaet.middlewarefactory.grpcserver.converter.tyk.TykRequestConverter;
+import com.skywaet.middlewarefactory.grpcserver.exception.BaseFactoryException;
 import com.skywaet.middlewarefactory.grpcserver.exception.middleware.BaseMiddlewareException;
 import com.skywaet.middlewarefactory.grpcserver.request.tyk.TykRequest;
 import com.skywaet.middlewarefactory.grpcserver.service.factory.MiddlewareFactory;
@@ -25,13 +26,19 @@ public class TykRPCService extends DispatcherGrpc.DispatcherImplBase {
             TykRequest result = (TykRequest) factory.processRequest(converter.from(request));
             responseObserver.onNext(converter.to(result));
         } catch (BaseMiddlewareException e) {
-            CoprocessObject.Object.Builder errBuilder = request.toBuilder();
-            CoprocessReturnOverrides.ReturnOverrides error = CoprocessReturnOverrides.ReturnOverrides.newBuilder().
-                    setResponseCode(400).setResponseError(e.getMessage()).build();
-            errBuilder.getRequestBuilder().setReturnOverrides(error);
-            responseObserver.onNext(errBuilder.build());
+            responseObserver.onNext(processError(request, 400, e.getMessage()));
+        } catch (BaseFactoryException e) {
+            responseObserver.onNext(processError(request, 500, e.getMessage()));
         }
         responseObserver.onCompleted();
+    }
+
+    private CoprocessObject.Object processError(CoprocessObject.Object request, Integer errorCode, String message) {
+        CoprocessObject.Object.Builder errBuilder = request.toBuilder();
+        CoprocessReturnOverrides.ReturnOverrides error = CoprocessReturnOverrides.ReturnOverrides.newBuilder().
+                setResponseCode(errorCode).setResponseError(message).build();
+        errBuilder.getRequestBuilder().setReturnOverrides(error);
+        return errBuilder.build();
     }
 
 }

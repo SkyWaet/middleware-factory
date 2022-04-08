@@ -61,6 +61,7 @@ public class DataScreener implements BaseMiddleware {
             if (fieldNames.size() == 1 && fieldNames.get(0).equals(WILDCARD)) {
                 return request.setRequestBody(WILDCARD);
             } else {
+                //TODO доработать для вложенных объектов
                 fieldNames.forEach(name -> {
                     JsonNode foundField = parsedBody.findValue(name);
                     if (foundField != null) {
@@ -69,9 +70,11 @@ public class DataScreener implements BaseMiddleware {
                 });
             }
             return request.setRequestBody(mapper.writeValueAsString(parsedBody));
-        } catch (JsonProcessingException e) {
+        } catch (
+                JsonProcessingException e) {
             throw new JsonBodyValidationFailureException("Error while body parsing");
         }
+
     }
 
     private BaseRequest screenHeaders(BaseRequest input, List<String> headers) {

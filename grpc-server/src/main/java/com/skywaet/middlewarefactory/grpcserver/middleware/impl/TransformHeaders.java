@@ -1,22 +1,30 @@
 package com.skywaet.middlewarefactory.grpcserver.middleware.impl;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.skywaet.middlewarefactory.grpcserver.middleware.BaseMiddleware;
 import com.skywaet.middlewarefactory.grpcserver.request.BaseRequest;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Component("TransformHeaders")
 public class TransformHeaders implements BaseMiddleware {
 
-    @Getter
-    private final class TransformHeadersData {
-        private List<String> removeHeaders;
-        private Map<String, String> addHeaders;
-        private Map<String, String> overrideHeaders;
+    @Data
+    private static final class TransformHeadersData {
+        @JsonProperty("remove_headers")
+        private List<String> removeHeaders = new ArrayList<>();
+        @JsonProperty("add_headers")
+        private Map<String, String> addHeaders = new HashMap<>();
+        @JsonProperty("override_headers")
+        private Map<String, String> overrideHeaders = new HashMap<>();
     }
 
     private final ObjectMapper objectMapper = new ObjectMapper();
