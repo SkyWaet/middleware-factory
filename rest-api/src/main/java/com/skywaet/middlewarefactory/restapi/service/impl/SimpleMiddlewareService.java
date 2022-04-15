@@ -3,7 +3,7 @@ package com.skywaet.middlewarefactory.restapi.service.impl;
 import com.skywaet.middlewarefactory.factorycommon.model.Middleware;
 import com.skywaet.middlewarefactory.restapi.converter.MiddlewareConverter;
 import com.skywaet.middlewarefactory.restapi.exception.notfound.MiddlewareNotFoundException;
-import com.skywaet.middlewarefactory.restapi.generated.dto.MiddlewareDto;
+import com.skywaet.middlewarefactory.factorycommon.generated.dto.MiddlewareDto;
 import com.skywaet.middlewarefactory.restapi.repository.MiddlewareRepository;
 import com.skywaet.middlewarefactory.restapi.service.IMiddlewareService;
 import lombok.AllArgsConstructor;

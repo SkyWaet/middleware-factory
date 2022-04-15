@@ -13,25 +13,16 @@
     <description>REST API for middleware factory configuration</description>
     <properties>
         <java.version>11</java.version>
-        <swagger-parser.version>2.0.24</swagger-parser.version>
-        <swagger.codegen.plugin.version>3.0.24</swagger.codegen.plugin.version>
-        <modelmapper.version>2.4.4</modelmapper.version>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>org.modelmapper</groupId>
-            <artifactId>modelmapper</artifactId>
-            <version>${modelmapper.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.swagger.parser.v3</groupId>
-            <artifactId>swagger-parser</artifactId>
-            <version>${swagger-parser.version}</version>
-        </dependency>
         <dependency>
             <groupId>com.skywaet</groupId>
             <artifactId>factory-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -62,6 +53,10 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -77,65 +72,7 @@
                     </excludes>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>io.swagger.codegen.v3</groupId>
-                <artifactId>swagger-codegen-maven-plugin</artifactId>
-                <version>${swagger.codegen.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>generate-sources-endpoints</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <language>java</language>
-                            <library>resttemplate</library>
-                            <output>${project.basedir}/src/main/generated-sources</output>
-                            <inputSpec>
-                                ${project.basedir}/src/main/resources/api/endpoints/endpoints.yaml
-                            </inputSpec>
-                            <modelPackage>com.skywaet.middlewarefactory.restapi.generated.dto</modelPackage>
-                            <generateApis>false</generateApis>
-                            <generateSupportingFiles>false</generateSupportingFiles>
-                            <typeMappings>
-                                <typeMapping>Pageable=org.springframework.data.domain.Pageable</typeMapping>
-                                <typeMapping>Predicate=com.querydsl.core.types.Predicate</typeMapping>
-                                <typeMapping>Page=org.springframework.data.domain.Page</typeMapping>
-                            </typeMappings>
-                            <configOptions>
-                                <dateLibrary>java8-localdatetime</dateLibrary>
-                            </configOptions>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>generate-sources-middlewares</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <language>java</language>
-                            <library>resttemplate</library>
-                            <output>${project.basedir}/src/main/generated-sources</output>
-                            <inputSpec>
-                                ${project.basedir}/src/main/resources/api/middlewares/middlewares.yaml
-                            </inputSpec>
-                            <modelPackage>com.skywaet.middlewarefactory.restapi.generated.dto</modelPackage>
-                            <generateApis>false</generateApis>
-                            <generateSupportingFiles>false</generateSupportingFiles>
-                            <typeMappings>
-                                <typeMapping>Pageable=org.springframework.data.domain.Pageable</typeMapping>
-                                <typeMapping>Predicate=com.querydsl.core.types.Predicate</typeMapping>
-                                <typeMapping>Page=org.springframework.data.domain.Page</typeMapping>
-                            </typeMappings>
-                            <configOptions>
-                                <dateLibrary>java8-localdatetime</dateLibrary>
-                            </configOptions>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+
         </plugins>
     </build>
 </project>

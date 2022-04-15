@@ -1,0 +1,89 @@
+openapi: 3.0.3
+info:
+  title: Dtos for factory configuration
+  description: dtos for factory configuration
+  version: 1.0.0
+paths: { }
+components:
+  schemas:
+    FactoryNotification:
+      type: object
+      additionalProperties: false
+      properties:
+        event:
+          type: string
+          enum:
+            - add_endpoint
+            - update_endpoint
+            - delete_endpoint
+            - initial_load
+            - middleware_names
+        message:
+          type: string
+          format: byte
+    FactoryEndpointListDto:
+      type: object
+      additionalProperties: false
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/FactoryEndpointDto"
+    FactoryEndpointShortDto:
+      type: object
+      additionalProperties: false
+      properties:
+        uri:
+          type: string
+        method:
+          type: string
+        api_id:
+          type: string
+      required:
+        - uri
+        - method
+        - api_id
+        -
+    FactoryEndpointDto:
+      allOf:
+        - $ref: "#/components/schemas/FactoryEndpointShortDto"
+        - type: object
+          additionalProperties: false
+          properties:
+            uri:
+              type: string
+            method:
+              type: string
+            api_id:
+              type: string
+            middlewares:
+              type: array
+              items:
+                $ref: "#/components/schemas/FactoryEndpointMiddlewareBindingDto"
+
+    FactoryEndpointMiddlewareBindingDto:
+      type: object
+      additionalProperties: false
+      properties:
+        middleware_name:
+          type: string
+        phase:
+          type: string
+          enum:
+            - PRE
+            - AUTH
+            - POST_AUTH
+            - POST
+            - RESPONSE
+        place:
+          description: place in chain for chosen phase
+          type: integer
+          minimum: 0
+        params:
+          type: object
+          additionalProperties: true
+      required:
+        - middleware_name
+        - params
+        - place
+  

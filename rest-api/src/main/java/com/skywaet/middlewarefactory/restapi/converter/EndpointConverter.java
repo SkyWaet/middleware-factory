@@ -1,8 +1,8 @@
 package com.skywaet.middlewarefactory.restapi.converter;
 
 import com.skywaet.middlewarefactory.factorycommon.model.Endpoint;
-import com.skywaet.middlewarefactory.restapi.generated.dto.EndpointDto;
-import com.skywaet.middlewarefactory.restapi.generated.dto.EndpointExtendedDto;
+import com.skywaet.middlewarefactory.factorycommon.generated.dto.EndpointDto;
+import com.skywaet.middlewarefactory.factorycommon.generated.dto.EndpointExtendedDto;
 import org.apache.commons.collections4.CollectionUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;

@@ -1,8 +1,8 @@
 package com.skywaet.middlewarefactory.restapi.service;
 
 import org.springframework.data.domain.Page;
-import com.skywaet.middlewarefactory.restapi.generated.dto.EndpointDto;
-import com.skywaet.middlewarefactory.restapi.generated.dto.EndpointExtendedDto;
+import com.skywaet.middlewarefactory.factorycommon.generated.dto.EndpointDto;
+import com.skywaet.middlewarefactory.factorycommon.generated.dto.EndpointExtendedDto;
 import org.springframework.data.domain.Pageable;
 
 public interface IEndpointService {

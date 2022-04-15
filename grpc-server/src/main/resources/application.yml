@@ -22,3 +22,11 @@ spring:
           print:
             banner: false
 use-simple: false
+factory:
+  configuration-storage: database
+  available-middlewares:
+    - BodyConverter
+    - DataScreener
+    - JsonBodyValidator
+    - XMLBodyValidator
+    - TransformHeaders

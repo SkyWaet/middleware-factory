@@ -1,6 +1,6 @@
 package com.skywaet.middlewarefactory.restapi.service;
 
-import com.skywaet.middlewarefactory.restapi.generated.dto.MiddlewareDto;
+import com.skywaet.middlewarefactory.factorycommon.generated.dto.MiddlewareDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

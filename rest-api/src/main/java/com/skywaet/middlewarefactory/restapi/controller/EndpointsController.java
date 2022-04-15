@@ -1,7 +1,7 @@
 package com.skywaet.middlewarefactory.restapi.controller;
 
-import com.skywaet.middlewarefactory.restapi.generated.dto.EndpointDto;
-import com.skywaet.middlewarefactory.restapi.generated.dto.EndpointExtendedDto;
+import com.skywaet.middlewarefactory.factorycommon.generated.dto.EndpointDto;
+import com.skywaet.middlewarefactory.factorycommon.generated.dto.EndpointExtendedDto;
 import com.skywaet.middlewarefactory.restapi.service.IEndpointService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;

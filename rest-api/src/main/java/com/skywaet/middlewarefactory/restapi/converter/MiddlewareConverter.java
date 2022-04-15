@@ -3,7 +3,7 @@ package com.skywaet.middlewarefactory.restapi.converter;
 import com.skywaet.middlewarefactory.factorycommon.model.Middleware;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
-import com.skywaet.middlewarefactory.restapi.generated.dto.MiddlewareDto;
+import com.skywaet.middlewarefactory.factorycommon.generated.dto.MiddlewareDto;
 
 @Component
 public class MiddlewareConverter {
