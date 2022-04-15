@@ -9,6 +9,7 @@ import com.networknt.schema.SpecVersionDetector;
 import com.networknt.schema.ValidationMessage;
 import com.skywaet.middlewarefactory.grpcserver.exception.middleware.JsonBodyValidationFailureException;
 import com.skywaet.middlewarefactory.grpcserver.validators.JsonValidator;
+import liquibase.pro.packaged.B;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -42,6 +43,8 @@ public class JsonSchemaValidator implements JsonValidator {
             }
         } catch (JsonProcessingException e) {
             log.error("Error while parsing json: {}", e.getMessage());
+          throw new JsonBodyValidationFailureException(
+                    String.format("Error while json validation: %s", e.getMessage()));
         }
     }
 
