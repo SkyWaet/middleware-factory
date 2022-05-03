@@ -1,15 +1,17 @@
 package com.skywaet.middlewarefactory.restapi.service.impl;
 
+import com.skywaet.middlewarefactory.factorycommon.generated.dto.MiddlewareDto;
 import com.skywaet.middlewarefactory.factorycommon.model.Middleware;
 import com.skywaet.middlewarefactory.restapi.converter.MiddlewareConverter;
 import com.skywaet.middlewarefactory.restapi.exception.notfound.MiddlewareNotFoundException;
-import com.skywaet.middlewarefactory.factorycommon.generated.dto.MiddlewareDto;
 import com.skywaet.middlewarefactory.restapi.repository.MiddlewareRepository;
 import com.skywaet.middlewarefactory.restapi.service.IMiddlewareService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -40,6 +42,14 @@ public class SimpleMiddlewareService implements IMiddlewareService {
         Middleware newMiddleware = middlewareConverter.from(dto);
         newMiddleware.setId(id);
         return middlewareConverter.toDto(middlewareRepository.save(newMiddleware));
+    }
+
+    @Override
+    public MiddlewareDto doAddOrUpdate(MiddlewareDto dto) {
+        Optional<Middleware> existingMiddleware = middlewareRepository.getMiddlewareByName(dto.getName());
+        return existingMiddleware.isPresent()
+                ? updateById(existingMiddleware.get().getId(), dto)
+                : create(dto);
     }
 
     @Override

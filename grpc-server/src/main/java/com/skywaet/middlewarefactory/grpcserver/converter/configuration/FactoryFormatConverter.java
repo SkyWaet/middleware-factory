@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class FactoryFormatConverter {
-    @Qualifier("factoryFormatMapper")
+    @Qualifier("factoryFormatMapperConfiguration")
     private final ModelMapper factoryFormatMapper;
 
     public FactoryEndpoint fromFactoryEndpointDto(FactoryEndpointDto dto) {
@@ -29,7 +29,7 @@ public class FactoryFormatConverter {
         return factoryFormatMapper.map(dto, FactoryEndpointMiddlewareBinding.class);
     }
 
-    public FactoryEndpointMiddlewareBinding fromFactoryEndpointMiddlewareBinding(EndpointMiddlewareBinding model) {
+    public FactoryEndpointMiddlewareBinding fromEndpointMiddlewareBinding(EndpointMiddlewareBinding model) {
         return factoryFormatMapper.map(model, FactoryEndpointMiddlewareBinding.class);
     }
 

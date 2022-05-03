@@ -20,3 +20,7 @@ spring:
           print:
             banner: false
 use-simple: false
+kafka:
+  bootstrap-address: localhost:29092
+  group-id: config
+

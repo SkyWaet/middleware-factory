@@ -7,7 +7,7 @@ import com.skywaet.middlewarefactory.grpcserver.request.BaseRequest;
 
 import java.util.List;
 
-public interface IConfigurationService {
+public interface IConfigurationStorageService {
 
     List<FactoryEndpointMiddlewareBinding> getMiddlewaresForRequest(BaseRequest request);
 

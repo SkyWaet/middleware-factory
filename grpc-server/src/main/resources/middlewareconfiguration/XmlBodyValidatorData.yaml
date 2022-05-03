@@ -1,0 +1,17 @@
+openapi: 3.0.3
+info:
+  title: XmlBodyValidatorData
+  description: XmlBodyValidatorData
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    XmlBodyValidatorData:
+      type: object
+      additionalProperties: false
+      properties:
+        schema:
+          type: string
+      required:
+        - schema
+  

@@ -4,7 +4,7 @@ import com.skywaet.middlewarefactory.grpcserver.exception.notfound.MiddlewareNot
 import com.skywaet.middlewarefactory.grpcserver.middleware.BaseMiddleware;
 import com.skywaet.middlewarefactory.grpcserver.model.FactoryEndpointMiddlewareBinding;
 import com.skywaet.middlewarefactory.grpcserver.request.BaseRequest;
-import com.skywaet.middlewarefactory.grpcserver.service.configuration.IConfigurationService;
+import com.skywaet.middlewarefactory.grpcserver.service.configuration.IConfigurationStorageService;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -25,7 +25,7 @@ public abstract class AbstractFactoryService implements MiddlewareFactory, Appli
     @Setter
     private ApplicationContext applicationContext;
 
-    public abstract IConfigurationService getConfigurationService();
+    public abstract IConfigurationStorageService getConfigurationService();
 
     @Override
     public BaseRequest processRequest(BaseRequest request) {

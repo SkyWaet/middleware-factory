@@ -2,13 +2,14 @@ package com.skywaet.middlewarefactory.grpcserver.service.configuration.impl;
 
 import com.skywaet.middlewarefactory.factorycommon.generated.dto.FactoryEndpointDto;
 import com.skywaet.middlewarefactory.factorycommon.generated.dto.FactoryEndpointShortDto;
+import com.skywaet.middlewarefactory.factorycommon.generated.dto.FactoryMiddlewareDto;
 import com.skywaet.middlewarefactory.factorycommon.model.Phase;
 import com.skywaet.middlewarefactory.grpcserver.converter.configuration.FactoryFormatConverter;
 import com.skywaet.middlewarefactory.grpcserver.model.FactoryEndpoint;
 import com.skywaet.middlewarefactory.grpcserver.model.FactoryEndpointMiddlewareBinding;
 import com.skywaet.middlewarefactory.grpcserver.request.BaseRequest;
 import com.skywaet.middlewarefactory.grpcserver.request.tyk.TykRequest;
-import com.skywaet.middlewarefactory.grpcserver.service.configuration.IConfigurationService;
+import com.skywaet.middlewarefactory.grpcserver.service.configuration.IConfigurationStorageService;
 import com.skywaet.middlewarefactory.grpcserver.util.UrlToRegexpConversionUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,14 +22,15 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-@ConditionalOnProperty(name = "configuration-storage", havingValue = "in-memory")
+@ConditionalOnProperty(name = "factory.configuration-storage", havingValue = "in-memory")
 @AllArgsConstructor
 @Slf4j
-public class TykInMemoryConfigurationService implements IConfigurationService {
+public class TykInMemoryConfigurationStorageService implements IConfigurationStorageService {
 
     private final Map<FactoryEndpoint, Set<String>> endpointUriRegexps = new HashMap<>();
     private final Map<String, Map<Phase, TreeSet<FactoryEndpointMiddlewareBinding>>> configurationsForEndpoint = new HashMap<>();
     private final FactoryFormatConverter factoryFormatConverter;
+
     @Value("${factory.available-middlewares}")
     @Getter
     private List<String> availableMiddlewareNames;
@@ -55,7 +57,6 @@ public class TykInMemoryConfigurationService implements IConfigurationService {
         }
         throw new IllegalArgumentException("Wrong request type");
     }
-
 
     @Override
     public void saveConfigurationForEndpoint(FactoryEndpointDto dto) {

@@ -3,11 +3,13 @@ package com.skywaet.middlewarefactory.grpcserver.model;
 import com.skywaet.middlewarefactory.factorycommon.model.Phase;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Map;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class FactoryEndpointMiddlewareBinding implements Comparable<FactoryEndpointMiddlewareBinding> {
 
     private String middlewareName;

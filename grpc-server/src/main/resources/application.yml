@@ -21,12 +21,12 @@ spring:
         types:
           print:
             banner: false
+
 use-simple: false
+kafka:
+    bootstrap-address: localhost:29092
+    group-id: factories
 factory:
-  configuration-storage: database
-  available-middlewares:
-    - BodyConverter
-    - DataScreener
-    - JsonBodyValidator
-    - XMLBodyValidator
-    - TransformHeaders
+  configuration-source: kafka
+  configuration-storage: in-memory
+  available-middlewares: BodyConverter, DataScreener, JsonBodyValidator, XMLBodyValidator, TransformHeaders

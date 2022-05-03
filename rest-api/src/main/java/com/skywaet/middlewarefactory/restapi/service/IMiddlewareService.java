@@ -14,5 +14,7 @@ public interface IMiddlewareService {
 
     MiddlewareDto updateById(Long id, MiddlewareDto dto);
 
+    MiddlewareDto doAddOrUpdate(MiddlewareDto dto);
+
     void deleteById(Long id);
 }

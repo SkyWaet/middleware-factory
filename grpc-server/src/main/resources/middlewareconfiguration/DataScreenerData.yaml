@@ -1,0 +1,37 @@
+openapi: 3.0.3
+info:
+  title: DataScreenerData
+  description: DataScreenerData
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    DataScreenerData:
+      type: object
+      additionalProperties: false
+      properties:
+        json:
+          type: array
+          items:
+            type: string
+        header:
+          type: array
+          items:
+            type: string
+        params:
+          $ref: "#/components/schemas/DataScreenerParamsData"
+
+    DataScreenerParamsData:
+      type: object
+      additionalProperties: false
+      properties:
+        query:
+          type: array
+          items:
+            type: string
+        path:
+          type: array
+          items:
+            type: string
+
+  

@@ -9,7 +9,7 @@ import com.skywaet.middlewarefactory.grpcserver.model.FactoryEndpointMiddlewareB
 import com.skywaet.middlewarefactory.grpcserver.repository.EndpointMiddlewareRepository;
 import com.skywaet.middlewarefactory.grpcserver.request.BaseRequest;
 import com.skywaet.middlewarefactory.grpcserver.request.tyk.TykRequest;
-import com.skywaet.middlewarefactory.grpcserver.service.configuration.IConfigurationService;
+import com.skywaet.middlewarefactory.grpcserver.service.configuration.IConfigurationStorageService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.apache.commons.lang3.NotImplementedException;
@@ -24,9 +24,9 @@ import java.util.stream.StreamSupport;
 
 
 @Service
-@ConditionalOnProperty(name = "configuration-storage", havingValue = "database")
+@ConditionalOnProperty(name = "factory.configuration-storage", havingValue = "database")
 @AllArgsConstructor
-public class TykConfigurationService implements IConfigurationService {
+public class TykConfigurationStorageService implements IConfigurationStorageService {
 
     private final EndpointMiddlewareRepository repository;
     private final FactoryFormatConverter factoryFormatConverter;
@@ -46,7 +46,7 @@ public class TykConfigurationService implements IConfigurationService {
             builder.and(QEndpointMiddlewareBinding.endpointMiddlewareBinding.endpoint.apiId.eq(convertedRequest.getApiId()));
 
             return StreamSupport.stream(repository.findAll(builder, Sort.by(Sort.Direction.ASC, "place")).spliterator(), false)
-                    .map(factoryFormatConverter::fromFactoryEndpointMiddlewareBinding).collect(Collectors.toList());
+                    .map(factoryFormatConverter::fromEndpointMiddlewareBinding).collect(Collectors.toList());
 
         }
         throw new IllegalArgumentException("Wrong request type");

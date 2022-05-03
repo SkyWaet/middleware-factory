@@ -1,0 +1,29 @@
+openapi: 3.0.3
+info:
+  title: TransformHeadersData
+  description: configuration properties for TransformHeaders middleware
+  version: 1.0.0
+paths: { }
+components:
+  schemas:
+    TransformHeadersData:
+      type: object
+      additionalProperties: false
+      properties:
+        remove_headers:
+          type: array
+          items:
+            type: string
+          description: названия заголовков, которые нужно удалить
+        add_headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: пары ключ - значение, которые нужно добавить в качестве заголовков
+        override_headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: названия заголовков и их новые значения
+
+  

@@ -4,7 +4,7 @@ public final class UrlToRegexpConversionUtils {
     private UrlToRegexpConversionUtils() {
     }
 
-    private static final String PATH_PARAMETER_REGEXP = "{\\w+}";
+    private static final String PATH_PARAMETER_REGEXP = "\\{\\w+}";
 
     private static final String REPLACEMENT = "[A-Za-z0-9;\\-_.=,]+";
 

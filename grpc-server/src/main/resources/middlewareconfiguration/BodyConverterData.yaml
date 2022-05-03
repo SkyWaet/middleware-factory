@@ -1,0 +1,20 @@
+openapi: 3.0.3
+info:
+  title: BodyConverterData
+  description: BodyConverterData
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    BodyConverterData:
+      type: object
+      additionalProperties: false
+      properties:
+        convert_from:
+          type: string
+          enum:
+            - XML
+            - JSON
+      required:
+        - convert_from
+  

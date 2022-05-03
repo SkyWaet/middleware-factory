@@ -43,7 +43,7 @@ components:
         - uri
         - method
         - api_id
-        -
+
     FactoryEndpointDto:
       allOf:
         - $ref: "#/components/schemas/FactoryEndpointShortDto"
@@ -87,3 +87,20 @@ components:
         - params
         - place
   
+    FactoryMiddlewareListDto:
+      type: object
+      additionalProperties: false
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/FactoryMiddlewareDto"
+
+    FactoryMiddlewareDto:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+      required:
+        - name

@@ -42,7 +42,7 @@ public class DataScreener implements BaseMiddleware {
                 case "params":
                     if (currentValue instanceof Map) {
                         Map<String, Object> params = (Map<String, Object>) currentValue;
-                        result = result.mergeWith(screenUrlPathAndQueryPathParameters(input,
+                        result = result.mergeWith(screenUrlPathAndQueryParameters(input,
                                 (List<String>) params.get("query"),
                                 (List<String>) params.get("path")));
                         break;
@@ -86,9 +86,9 @@ public class DataScreener implements BaseMiddleware {
         return input.removeHeaders(new ArrayList<>(headersToMask.keySet())).addHeaders(headersToMask);
     }
 
-    private BaseRequest screenUrlPathAndQueryPathParameters(BaseRequest input,
-                                                            List<String> queryParams,
-                                                            List<String> pathParams) {
+    private BaseRequest screenUrlPathAndQueryParameters(BaseRequest input,
+                                                        List<String> queryParams,
+                                                        List<String> pathParams) {
         //TODO доработать
         Map<String, String> requestQueryParams = input.getParameters();
         if (queryParams.size() == 1 && queryParams.get(0).equals(WILDCARD)) {
