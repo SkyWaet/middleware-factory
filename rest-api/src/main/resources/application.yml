@@ -4,7 +4,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/MiddlewareFactory
     username: postgres
-    password: postgres
+    password: root1234
     driver-class-name: org.postgresql.Driver
   liquibase:
     change-log: classpath:/db/liquibase-changelog.xml
@@ -21,6 +21,6 @@ spring:
             banner: false
 use-simple: false
 kafka:
-  bootstrap-address: localhost:29092
+  bootstrap-address: 192.168.1.103:29093
   group-id: config
 

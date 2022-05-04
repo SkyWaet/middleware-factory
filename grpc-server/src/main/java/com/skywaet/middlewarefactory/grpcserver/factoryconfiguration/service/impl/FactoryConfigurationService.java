@@ -6,6 +6,7 @@ import com.skywaet.middlewarefactory.grpcserver.factoryconfiguration.service.ICo
 import com.skywaet.middlewarefactory.grpcserver.service.configuration.IConfigurationStorageService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 @Slf4j
+@ConditionalOnProperty(name = "factory.configuration-source", havingValue = "kafka")
 public class FactoryConfigurationService implements IConfigurationService {
 
     private final IConfigurationStorageService configurationStorageService;

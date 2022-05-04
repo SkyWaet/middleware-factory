@@ -6,6 +6,8 @@ import com.skywaet.middlewarefactory.factorycommon.generated.dto.FactoryEndpoint
 import com.skywaet.middlewarefactory.factorycommon.model.EndpointMiddlewareBinding;
 import com.skywaet.middlewarefactory.grpcserver.model.FactoryEndpoint;
 import com.skywaet.middlewarefactory.grpcserver.model.FactoryEndpointMiddlewareBinding;
+import com.skywaet.middlewarefactory.grpcserver.request.tyk.TykRequest;
+import com.skywaet.middlewarefactory.grpcserver.request.tyk.impl.TykRequestProxy;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;

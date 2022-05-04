@@ -31,16 +31,16 @@ public abstract class AbstractFactoryService implements MiddlewareFactory, Appli
     public BaseRequest processRequest(BaseRequest request) {
         List<FactoryEndpointMiddlewareBinding> middlewareConfigurations = getConfigurationService().getMiddlewaresForRequest(request);
         if (!CollectionUtils.isEmpty(middlewareConfigurations)) {
-            BaseRequest result = request;
+            //BaseRequest result = request;
             for (FactoryEndpointMiddlewareBinding config : middlewareConfigurations) {
                 BaseMiddleware middleware = middlewareMap.get(config.getMiddlewareName());
                 if (middleware == null) {
                     log.error("Middleware {} not found", config.getMiddlewareName());
                     throw new MiddlewareNotFoundException(config.getMiddlewareName());
                 }
-                result = result.mergeWith(middleware.process(request, config.getParams()));
+               middleware.process(request, config.getParams());
             }
-            return result;
+           // return result;
         }
         return request;
     }

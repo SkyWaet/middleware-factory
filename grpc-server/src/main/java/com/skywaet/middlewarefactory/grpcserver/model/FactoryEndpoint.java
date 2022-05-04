@@ -13,4 +13,6 @@ public class FactoryEndpoint {
 
     private String apiId;
 
+    private String uri;
+
 }
