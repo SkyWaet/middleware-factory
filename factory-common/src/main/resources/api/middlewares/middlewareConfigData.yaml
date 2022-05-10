@@ -1,0 +1,80 @@
+openapi: 3.0.3
+info:
+  title: middlewares config data
+  description: middlewares config data
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    JsonBodyValidatorData:
+      type: object
+      additionalProperties: false
+      properties:
+        schema:
+          type: object
+          additionalProperties:
+            type: object
+      required:
+        - schema
+    XmlBodyValidatorData:
+      type: object
+      additionalProperties: false
+      properties:
+        schema:
+          type: string
+      required:
+        - schema
+    TransformHeadersData:
+      type: object
+      additionalProperties: false
+      properties:
+        remove_headers:
+          type: array
+          items:
+            type: string
+        add_headers:
+          type: object
+          additionalProperties:
+            type: string
+        override_headers:
+          type: object
+          additionalProperties:
+            type: string
+    DataScreenerData:
+      type: object
+      additionalProperties: false
+      properties:
+        json:
+          type: array
+          items:
+            type: string
+        header:
+          type: array
+          items:
+            type: string
+        params:
+          $ref: "#/components/schemas/DataScreenerParamsData"
+    DataScreenerParamsData:
+      type: object
+      additionalProperties: false
+      properties:
+        query:
+          type: array
+          items:
+            type: string
+        path:
+          type: array
+          items:
+            type: string
+    BodyConverterData:
+      type: object
+      additionalProperties: false
+      properties:
+        convert_from:
+          type: string
+          enum:
+            - XML
+            - JSON
+      required:
+        - convert_from
+  

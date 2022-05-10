@@ -16,6 +16,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Slf4j
 public abstract class AbstractFactoryService implements MiddlewareFactory, ApplicationContextAware {
@@ -29,7 +30,7 @@ public abstract class AbstractFactoryService implements MiddlewareFactory, Appli
 
     @Override
     public BaseRequest processRequest(BaseRequest request) {
-        List<FactoryEndpointMiddlewareBinding> middlewareConfigurations = getConfigurationService().getMiddlewaresForRequest(request);
+        Set<FactoryEndpointMiddlewareBinding> middlewareConfigurations = getConfigurationService().getMiddlewaresForRequest(request);
         if (!CollectionUtils.isEmpty(middlewareConfigurations)) {
             //BaseRequest result = request;
             for (FactoryEndpointMiddlewareBinding config : middlewareConfigurations) {

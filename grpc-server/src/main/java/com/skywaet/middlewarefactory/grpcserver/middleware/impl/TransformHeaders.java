@@ -5,8 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.skywaet.middlewarefactory.grpcserver.middleware.BaseMiddleware;
 import com.skywaet.middlewarefactory.grpcserver.request.BaseRequest;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -30,7 +28,7 @@ public class TransformHeaders implements BaseMiddleware {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
-    public BaseRequest process(BaseRequest input, Map<String, Object> additionalParams) {
+    public BaseRequest process(BaseRequest input, Object additionalParams) {
         TransformHeadersData data = objectMapper.convertValue(additionalParams, TransformHeadersData.class);
         return input.removeHeaders(data.getRemoveHeaders()).addHeaders(data.getAddHeaders())
                 .addHeaders(data.getOverrideHeaders());

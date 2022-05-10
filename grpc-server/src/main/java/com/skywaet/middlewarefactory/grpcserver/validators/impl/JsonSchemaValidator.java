@@ -9,11 +9,9 @@ import com.networknt.schema.SpecVersionDetector;
 import com.networknt.schema.ValidationMessage;
 import com.skywaet.middlewarefactory.grpcserver.exception.middleware.JsonBodyValidationFailureException;
 import com.skywaet.middlewarefactory.grpcserver.validators.JsonValidator;
-import liquibase.pro.packaged.B;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.io.ObjectInputStream;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -24,7 +22,7 @@ public class JsonSchemaValidator implements JsonValidator {
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    public void validateJson(String json, String schema) {
+    public void validateJson(String json, JsonSchema schema) {
         if (json == null) {
             throw new IllegalArgumentException("Input json cannot be null");
         }
@@ -33,8 +31,7 @@ public class JsonSchemaValidator implements JsonValidator {
         }
         try {
             JsonNode parsedBody = getJsonNode(json);
-            JsonSchema parsedSchema = getJsonSchema(getJsonNode(schema));
-            Set<ValidationMessage> errors = parsedSchema.validate(parsedBody);
+            Set<ValidationMessage> errors = schema.validate(parsedBody);
             if (errors.size() > 0) {
                 String errorMessage = generateMessage(errors);
                 log.error("Error while json validation: {}", errorMessage);

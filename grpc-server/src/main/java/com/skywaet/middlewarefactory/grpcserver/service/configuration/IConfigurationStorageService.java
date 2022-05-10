@@ -6,10 +6,11 @@ import com.skywaet.middlewarefactory.grpcserver.model.FactoryEndpointMiddlewareB
 import com.skywaet.middlewarefactory.grpcserver.request.BaseRequest;
 
 import java.util.List;
+import java.util.Set;
 
 public interface IConfigurationStorageService {
 
-    List<FactoryEndpointMiddlewareBinding> getMiddlewaresForRequest(BaseRequest request);
+    Set<FactoryEndpointMiddlewareBinding> getMiddlewaresForRequest(BaseRequest request);
 
     List<String> getAvailableMiddlewareNames();
 

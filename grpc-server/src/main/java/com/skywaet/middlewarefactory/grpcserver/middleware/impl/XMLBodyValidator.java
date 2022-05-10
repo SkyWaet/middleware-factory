@@ -7,8 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
-
 @Component("XMLBodyValidator")
 @AllArgsConstructor
 @Slf4j
@@ -16,8 +14,8 @@ public class XMLBodyValidator implements BaseMiddleware {
     private final XMLValidator validator;
 
     @Override
-    public BaseRequest process(BaseRequest input, Map<String, Object> additionalParams) {
-        String rawSchema = (String) additionalParams.get("schema");
+    public BaseRequest process(BaseRequest input, Object additionalParams) {
+        String rawSchema = "";
         validator.validateXML(input.getRequestBody(), rawSchema);
         return input;
     }

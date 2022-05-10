@@ -18,7 +18,7 @@ public class FactoryEndpointMiddlewareBinding implements Comparable<FactoryEndpo
 
     private Phase phase;
 
-    private Map<String, Object> params;
+    private Object params;
 
     @Override
     public int compareTo(FactoryEndpointMiddlewareBinding o) {

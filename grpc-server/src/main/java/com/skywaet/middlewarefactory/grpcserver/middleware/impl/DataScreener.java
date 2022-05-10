@@ -22,36 +22,36 @@ public class DataScreener implements BaseMiddleware {
     private static final String WILDCARD = "*";
 
     @Override
-    public BaseRequest process(BaseRequest input, Map<String, Object> additionalParams) {
+    public BaseRequest process(BaseRequest input, Object additionalParams) {
         BaseRequest result = input;
-        for (String key : additionalParams.keySet()) {
-            Object currentValue = additionalParams.get(key);
-            switch (key) {
-                case "json":
-                    if (currentValue instanceof List) {
-                        result = result.mergeWith(screenJsonBody(input, ((List<String>) currentValue)));
-                        break;
-                    }
-                    throw new IllegalArgumentException("Wrong configuration data format");
-                case "header":
-                    if (currentValue instanceof List) {
-                        result = result.mergeWith(screenHeaders(input, ((List<String>) currentValue)));
-                        break;
-                    }
-                    throw new IllegalArgumentException("Wrong configuration data format");
-                case "params":
-                    if (currentValue instanceof Map) {
-                        Map<String, Object> params = (Map<String, Object>) currentValue;
-                        result = result.mergeWith(screenUrlPathAndQueryParameters(input,
-                                (List<String>) params.get("query"),
-                                (List<String>) params.get("path")));
-                        break;
-                    }
-                    throw new IllegalArgumentException("Wrong configuration data format");
-                default:
-                    break;
-            }
-        }
+//        for (String key : additionalParams.keySet()) {
+//            Object currentValue = additionalParams.get(key);
+//            switch (key) {
+//                case "json":
+//                    if (currentValue instanceof List) {
+//                        result = result.mergeWith(screenJsonBody(input, ((List<String>) currentValue)));
+//                        break;
+//                    }
+//                    throw new IllegalArgumentException("Wrong configuration data format");
+//                case "header":
+//                    if (currentValue instanceof List) {
+//                        result = result.mergeWith(screenHeaders(input, ((List<String>) currentValue)));
+//                        break;
+//                    }
+//                    throw new IllegalArgumentException("Wrong configuration data format");
+//                case "params":
+//                    if (currentValue instanceof Map) {
+//                        Map<String, Object> params = (Map<String, Object>) currentValue;
+//                        result = result.mergeWith(screenUrlPathAndQueryParameters(input,
+//                                (List<String>) params.get("query"),
+//                                (List<String>) params.get("path")));
+//                        break;
+//                    }
+//                    throw new IllegalArgumentException("Wrong configuration data format");
+//                default:
+//                    break;
+//            }
+//        }
         return result;
     }
 

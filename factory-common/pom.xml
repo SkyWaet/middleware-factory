@@ -118,6 +118,27 @@
                             <generateSupportingFiles>false</generateSupportingFiles>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>generate-sources-middleware-config-data</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <language>java</language>
+                            <library>resttemplate</library>
+                            <output>${project.basedir}/src/main/generated-sources</output>
+                            <inputSpec>
+                                ${project.basedir}/src/main/resources/api/middlewares/middlewareConfigData.yaml
+                            </inputSpec>
+                            <modelPackage>com.skywaet.middlewarefactory.factorycommon.generated.dto</modelPackage>
+                            <generateApis>false</generateApis>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <configOptions>
+                                <dateLibrary>java8-localdatetime</dateLibrary>
+                            </configOptions>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>

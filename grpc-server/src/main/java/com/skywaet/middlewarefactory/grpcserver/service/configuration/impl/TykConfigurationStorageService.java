@@ -19,6 +19,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -36,7 +37,7 @@ public class TykConfigurationStorageService implements IConfigurationStorageServ
     private List<String> availableMiddlewareNames;
 
     @Override
-    public List<FactoryEndpointMiddlewareBinding> getMiddlewaresForRequest(BaseRequest request) {
+    public Set<FactoryEndpointMiddlewareBinding> getMiddlewaresForRequest(BaseRequest request) {
         if (request instanceof TykRequest) {
             TykRequest convertedRequest = (TykRequest) request;
             BooleanBuilder builder = new BooleanBuilder();
@@ -46,7 +47,7 @@ public class TykConfigurationStorageService implements IConfigurationStorageServ
             builder.and(QEndpointMiddlewareBinding.endpointMiddlewareBinding.endpoint.apiId.eq(convertedRequest.getApiId()));
 
             return StreamSupport.stream(repository.findAll(builder, Sort.by(Sort.Direction.ASC, "place")).spliterator(), false)
-                    .map(factoryFormatConverter::fromEndpointMiddlewareBinding).collect(Collectors.toList());
+                    .map(factoryFormatConverter::fromEndpointMiddlewareBinding).collect(Collectors.toSet());
 
         }
         throw new IllegalArgumentException("Wrong request type");

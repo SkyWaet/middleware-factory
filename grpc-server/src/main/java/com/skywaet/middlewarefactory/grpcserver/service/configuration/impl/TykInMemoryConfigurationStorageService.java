@@ -4,6 +4,7 @@ import com.skywaet.middlewarefactory.factorycommon.generated.dto.FactoryEndpoint
 import com.skywaet.middlewarefactory.factorycommon.generated.dto.FactoryEndpointShortDto;
 import com.skywaet.middlewarefactory.factorycommon.model.Phase;
 import com.skywaet.middlewarefactory.grpcserver.converter.configuration.FactoryFormatConverter;
+import com.skywaet.middlewarefactory.grpcserver.converter.middleware.MiddlewareConfigurationPropertiesConverter;
 import com.skywaet.middlewarefactory.grpcserver.model.FactoryEndpoint;
 import com.skywaet.middlewarefactory.grpcserver.model.FactoryEndpointMiddlewareBinding;
 import com.skywaet.middlewarefactory.grpcserver.request.BaseRequest;
@@ -28,6 +29,7 @@ public class TykInMemoryConfigurationStorageService implements IConfigurationSto
 
     private final Map<FactoryEndpoint, Map<Phase, TreeSet<FactoryEndpointMiddlewareBinding>>> configurationsForEndpoint = new HashMap<>();
     private final FactoryFormatConverter factoryFormatConverter;
+    private final MiddlewareConfigurationPropertiesConverter middlewareConfigurationPropertiesConverter;
 
     @Value("${factory.available-middlewares}")
     @Getter
@@ -35,7 +37,7 @@ public class TykInMemoryConfigurationStorageService implements IConfigurationSto
 
 
     @Override
-    public List<FactoryEndpointMiddlewareBinding> getMiddlewaresForRequest(BaseRequest request) {
+    public Set<FactoryEndpointMiddlewareBinding> getMiddlewaresForRequest(BaseRequest request) {
         if (request instanceof TykRequest) {
             TykRequest convertedRequest = (TykRequest) request;
             String requestPath = request.getRequestUrl().split("\\?")[0];
@@ -52,11 +54,11 @@ public class TykInMemoryConfigurationStorageService implements IConfigurationSto
                 Map<Phase, TreeSet<FactoryEndpointMiddlewareBinding>> configurationsForAllPhases = configurationsForEndpoint
                         .get(endpointOfRequest.get());
                 if (configurationsForAllPhases != null) {
-                    return new ArrayList<>(configurationsForAllPhases.getOrDefault(convertedRequest.getRequestPhase(), new TreeSet<>()));
+                    return configurationsForAllPhases.getOrDefault(convertedRequest.getRequestPhase(), new TreeSet<>());
                 }
 
             }
-            return new ArrayList<>();
+            return new HashSet<>();
         }
         throw new IllegalArgumentException("Wrong request type");
     }
@@ -73,6 +75,7 @@ public class TykInMemoryConfigurationStorageService implements IConfigurationSto
                                 = configurationsForEndpoint.get(endpoint);
                         configurations.putIfAbsent(binding.getPhase(), new TreeSet<>());
                         configurations.get(binding.getPhase()).add(binding);
+                        binding.setParams(middlewareConfigurationPropertiesConverter.parseJsonSchemaValidatorSettings(binding.getParams()));
                     });
             log.debug("Added {} middleware bindings for endpoint {} {} of API with id {}",
                     dto.getMiddlewares().size(), endpoint.getMethod(), dto.getUri(), endpoint.getApiId());

@@ -18,17 +18,17 @@ public class SimpleBodyValidator implements BaseMiddleware {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
-    public BaseRequest process(BaseRequest input, Map<String, Object> additionalParams) {
+    public BaseRequest process(BaseRequest input, Object additionalParams) {
 
         try {
             JsonNode node = objectMapper.readTree(input.getRequestBody());
-            for (Map.Entry<String, Object> entry : additionalParams.entrySet()) {
-                String key = entry.getKey();
-                String value = (String) entry.getValue();
-                if (!node.has(key) || !node.get(key).asText().equals(value)) {
-                    throw new JsonBodyValidationFailureException("Invalid request body");
-                }
-            }
+//            for (Map.Entry<String, Object> entry : additionalParams.entrySet()) {
+//                String key = entry.getKey();
+//                String value = (String) entry.getValue();
+//                if (!node.has(key) || !node.get(key).asText().equals(value)) {
+//                    throw new JsonBodyValidationFailureException("Invalid request body");
+//                }
+//            }
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

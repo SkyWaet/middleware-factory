@@ -18,7 +18,6 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Map;
 
 @Component("BodyConverter")
 @Slf4j
@@ -35,7 +34,7 @@ public class BodyConverter implements BaseMiddleware {
     }
 
     @Override
-    public BaseRequest process(BaseRequest input, Map<String, Object> additionalParams) {
+    public BaseRequest process(BaseRequest input, Object additionalParams) {
         BodyConverterSettings settings = jsonMapper.convertValue(additionalParams, BodyConverterSettings.class);
 
         switch (settings.getConvertTo()) {
